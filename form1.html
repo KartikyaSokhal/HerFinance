@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HerFinance - Survey Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #007bff, #00c6ff);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .input-group input, .input-group textarea, .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            outline: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
+            border-color: #0056b3;
+            box-shadow: 0 0 8px rgba(0, 91, 255, 0.5);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+
+        /* Custom scrollbar */
+        .form-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .form-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .form-container::-webkit-scrollbar-thumb {
+            background: #007bff;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            .form-container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>HerFinance User Survey</h2>
+        <form>
+            <div class="input-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" name="fullname" required>
+            </div>
+            <div class="input-group">
+                <label for="age-group">Age Group</label>
+                <select id="age-group" name="age-group" required>
+                    <option value="" disabled selected>Select Age</option>
+                    <option value="18-25">18-25</option>
+                    <option value="26-35">26-35</option>
+                    <option value="36-45">36-45</option>
+                    <option value="46+">46+</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="investment-knowledge">Your Investment Knowledge</label>
+                <select id="investment-knowledge" name="investment-knowledge" required>
+                    <option value="" disabled selected>Select your level</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="income">What is your monthly income?</label>
+                <input type="number" id="income" name="income" required>
+            </div>
+            <div class="input-group">
+                <label for="savings">How much do you save monthly?</label>
+                <input type="number" id="savings" name="savings" required>
+            </div>
+            <div class="input-group">
+                <label for="financial-goals">What are your top financial goals?</label>
+                <textarea id="financial-goals" name="financial-goals" rows="3" required></textarea>
+            </div>
+            <div class="input-group">
+                <label for="investment-interest">Are you interested in learning more about investments?</label>
+                <select id="investment-interest" name="investment-interest" required>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="financial-advice">What type of financial advice would be most helpful for you?</label>
+                <textarea id="financial-advice" name="financial-advice" rows="3" required></textarea>
+            </div>
+            <div class="input-group">
+                <label for="app-source">Where did you hear about this app?</label>
+                <input type="text" id="app-source" name="app-source" required>
+            </div>
+            <button type="submit" class="submit-btn" onclick="window.location.href='heropage1.html'">Submit</button>
+        </form>
+    </div>
+    <script>
+        document.querySelector('form').addEventListener('submit', async (event) => {
+          event.preventDefault();
+        
+          // Collect form data
+          const formData = {
+            fullName: document.getElementById('fullname').value,
+            ageGroup: document.getElementById('age-group').value,
+            investmentKnowledge: document.getElementById('investment-knowledge').value,
+            monthlyIncome: document.getElementById('income').value,
+            monthlySavings: document.getElementById('savings').value,
+            financialGoals: document.getElementById('financial-goals').value,
+            investmentInterest: document.getElementById('investment-interest').value,
+            financialAdvice: document.getElementById('financial-advice').value,
+            appSource: document.getElementById('app-source').value
+          };
+        
+          try {
+            // Get token from localStorage
+            const token = localStorage.getItem('token');
+        
+            if (!token) {
+              throw new Error('No authentication token found');
+            }
+        
+            const response = await fetch('http://localhost:5000/api/survey/submit', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+              },
+              body: JSON.stringify(formData)
+            });
+        
+            const data = await response.json();
+        
+            if (response.ok) {
+              // Create success message element
+              let successDiv = document.createElement('div');
+              successDiv.style.color = 'green';
+              successDiv.style.marginTop = '10px';
+              successDiv.textContent = 'Survey submitted successfully!';
+              
+              // Add success message to form
+              document.querySelector('.form-container').insertBefore(
+                successDiv, 
+                document.querySelector('form')
+              );
+        
+              // Optional: Redirect or show next page
+              setTimeout(() => {
+                window.location.href = 'heropage1.html'; // Redirect to dashboard
+              }, 2000);
+            } else {
+              // Handle errors
+              throw new Error(data.message || 'Survey submission failed');
+            }
+          } catch (error) {
+            console.error('Error:', error);
+        
+            // Create error message element
+            let errorDiv = document.createElement('div');
+            errorDiv.style.color = 'red';
+            errorDiv.style.marginTop = '10px';
+            errorDiv.textContent = error.message || 'An unexpected error occurred';
+            
+            // Add error message to form
+            document.querySelector('.form-container').insertBefore(
+              errorDiv, 
+              document.querySelector('form')
+            );
+          }
+        });
+        </script>
+</body>
+</html>

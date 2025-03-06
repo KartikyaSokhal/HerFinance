@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GovSchemes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #007bff, #00c6ff);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            font-size: 18px;
+            color: white;
+        }
+
+        h1 {
+            background-color: #0056b3;
+            color: white;
+            padding: 20px;
+            margin: 0;
+            font-size: 32px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .schemes-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .scheme {
+            background-color: white;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            margin: 15px;
+            padding: 20px;
+            width: 400px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 220px;
+            font-size: 18px;
+            color: #333;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .scheme:hover {
+            transform: scale(1.05);
+        }
+
+        .scheme h2 {
+            margin-top: 0;
+            font-size: 22px;
+            color: #007bff;
+        }
+
+        .scheme p {
+            flex-grow: 1;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .scheme a {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .scheme a:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .schemes-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .scheme {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Government Schemes for women</h1>
+    <div class="schemes-container">
+        <div class="scheme">
+            <h2>Mahila E-Haat</h2>
+            <p>A digital platform for women entrepreneurs to sell products directly.</p>
+            <a href="mahila-e-haat.html">Learn More</a>
+        </div>
+        <div class="scheme">
+            <h2>Stand-Up India</h2>
+            <p>Provides loans to women entrepreneurs to start new businesses.</p>
+            <a href="stand-up-india.html">Learn More</a>
+        </div>
+        <div class="scheme">
+            <h2>Sukanya Samriddhi Yojana</h2>
+            <p>A savings scheme for a girl child’s education and future security.</p>
+            <a href="sukanya-yojana.html">Learn More</a>
+        </div>
+        <div class="scheme">
+            <h2>Mudra Yojana</h2>
+            <p>Offers collateral-free loans for women starting small businesses.</p>
+            <a href="mudra-yojana.html">Learn More</a>
+        </div>
+        <div class="scheme">
+            <h2>Nari Shakti Puraskar</h2>
+            <p>Award recognizing outstanding contributions of women in various fields.</p>
+            <a href="nari-shakti.html">Learn More</a>
+        </div>
+    </div>
+</body>
+</html>

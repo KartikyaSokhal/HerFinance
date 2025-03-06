@@ -1,0 +1,202 @@
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Login - HerFinance</title>
+      <link rel="stylesheet" href="loginpage.css" />
+      <style>
+        body {
+          display: flex;
+          height: 100vh;
+          margin: 0;
+          font-family: "Poppins", sans-serif;
+          background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+          color: white;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0 5%;
+        }
+        .left-section {
+          width: 40%;
+          background: rgba(255, 255, 255, 0.1);
+          color: white;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 40px;
+          text-align: center;
+          border-radius: 20px;
+        }
+        .left-section img {
+          width: 180px;
+          margin-bottom: 20px;
+        }
+        .right-section {
+          width: 40%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: white;
+          border-radius: 20px;
+          box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .login-container {
+          background: #fff;
+          padding: 40px;
+          border-radius: 20px;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+          width: 350px;
+          text-align: center;
+        }
+        .login-container h2 {
+          margin-bottom: 20px;
+          color: #1e3a8a;
+          font-size: 24px;
+        }
+        .input-group {
+          margin-bottom: 15px;
+          text-align: left;
+        }
+        .input-group label {
+          display: block;
+          margin-bottom: 5px;
+          color: #333;
+          font-weight: bold;
+        }
+        .input-group input {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          font-size: 16px;
+        }
+        .login-btn {
+          width: 100%;
+          padding: 12px;
+          background: #3b82f6;
+          border: none;
+          color: white;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 18px;
+          transition: 0.3s;
+        }
+        .login-btn:hover {
+          background: #1e40af;
+        }
+        p {
+          margin-top: 15px;
+          color: #555;
+        }
+        a {
+          color: #1e3a8a;
+          text-decoration: none;
+          font-weight: bold;
+        }
+        a:hover {
+          text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+          body {
+            flex-direction: column;
+            padding: 20px;
+          }
+          .left-section,
+          .right-section {
+            width: 100%;
+          }
+        }
+      </style>
+    </head>
+    <body>
+      <div class="left-section">
+        <img src="Screenshot 2025-03-05 174408.png" alt="HerFinance Logo" />
+        <h1>Secure Your Financial Future</h1>
+        <p style="color: white">
+          Track your expenses, set budgets, and achieve financial independence
+          with HerFinance.
+        </p>
+      </div>
+      <div class="right-section">
+        <div class="login-container">
+          <h2>Login</h2>
+          <form id="loginForm">
+            <div class="input-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" required />
+            </div>
+            <div class="input-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" required />
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+            <a href="forgot_pass.html">Forgot password?</a>
+            <p>Don't have an account? <a href="signup1.html">Sign up</a></p>
+          </form>
+        </div>
+      </div>
+
+      <script>
+        document.getElementById("loginForm").addEventListener("submit", async (event) => {
+          event.preventDefault();
+        
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+        
+          try {
+            const response = await fetch("http://localhost:5000/api/auth/login", {
+              method: "POST",
+              headers: { 
+                "Content-Type": "application/json",
+                // Add additional headers if needed
+              },
+              body: JSON.stringify({ email, password }),
+            });
+        
+            const data = await response.json();
+        
+            if (response.ok) {
+              // Store the token securely
+              localStorage.setItem("token", data.token);
+              
+              // Redirect to hero page
+              window.location.href = "heropage1.html";
+            } else {
+              // Handle different error scenarios
+              const errorMessage = data.msg || "Login failed. Please try again.";
+              
+              // Create an error display element if it doesn't exist
+              let errorDiv = document.getElementById('login-error');
+              if (!errorDiv) {
+                errorDiv = document.createElement('div');
+                errorDiv.id = 'login-error';
+                errorDiv.style.color = 'red';
+                errorDiv.style.marginTop = '10px';
+                document.querySelector('.login-container').appendChild(errorDiv);
+              }
+              
+              // Display error message
+              errorDiv.textContent = errorMessage;
+            }
+          } catch (error) {
+            console.error('Login error:', error);
+            
+            // Create an error display element if it doesn't exist
+            let errorDiv = document.getElementById('login-error');
+            if (!errorDiv) {
+              errorDiv = document.createElement('div');
+              errorDiv.id = 'login-error';
+              errorDiv.style.color = 'red';
+              errorDiv.style.marginTop = '10px';
+              document.querySelector('.login-container').appendChild(errorDiv);
+            }
+            
+            // Display network or unexpected error
+            errorDiv.textContent = 'An unexpected error occurred. Please try again.';
+          }
+        });
+        </script>
+    </body>
+  </html>
