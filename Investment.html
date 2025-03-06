@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Advisory - Her Finance</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+        label, select, button { display: block; margin: 10px 0; }
+        #advice, #how-to-invest { display: none; padding: 10px; background: #f8f8f8; border-radius: 5px; }
+        body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+    background-color: #ffffff;
+    color: #333333;
+}
+
+h2 {
+    color: #4a90e2;
+}
+
+label {
+    font-weight: bold;
+    color: #555555;
+}
+
+select, button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #cccccc;
+    font-size: 16px;
+}
+
+select {
+    background-color: #f8f8f8;
+}
+
+button {
+    background-color: #4a90e2;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #357ABD;
+}
+
+#advice, #how-to-invest {
+    display: none;
+    padding: 15px;
+    background: #f1faff;
+    border-radius: 5px;
+    border-left: 5px solid #4a90e2;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+#invest-btn {
+    display: none;
+    background-color: #ff9900;
+}
+
+#invest-btn:hover {
+    background-color: #e68a00;
+}
+
+    </style>
+</head>
+<body>
+    <h2>Investment Advisory</h2>
+    <p>Answer a few questions to get investment suggestions.</p>
+    
+    <label for="risk">Risk Tolerance:</label>
+    <select id="risk">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+    </select>
+    
+    <label for="goal">Investment Goal:</label>
+    <select id="goal">
+        <option value="growth">Wealth Growth</option>
+        <option value="income">Passive Income</option>
+        <option value="retirement">Retirement Savings</option>
+    </select>
+    
+    <button onclick="getAdvice()">Get Advice</button>
+    
+    <div id="advice"></div>
+    <button id="invest-btn" style="display:none;" onclick="showHowToInvest()">How to Invest?</button>
+    <div id="how-to-invest"></div>
+    
+    <script>
+        function getAdvice() {
+            let risk = document.getElementById("risk").value;
+            let goal = document.getElementById("goal").value;
+            let adviceText = "";
+            let investOption = "";
+
+            if (goal === "growth") {
+                adviceText = risk === "low" ? "Consider Index Funds or Bonds." : risk === "medium" ? "Look into Mutual Funds or ETFs." : "Explore Stocks & Crypto.";
+                investOption = "stocks";
+            } else if (goal === "income") {
+                adviceText = risk === "low" ? "Fixed Deposits & Dividend Stocks." : risk === "medium" ? "REITs & High-Yield Bonds." : "Peer-to-Peer Lending & Rental Properties.";
+                investOption = "reits";
+            } else {
+                adviceText = risk === "low" ? "Pension Funds & Bonds." : risk === "medium" ? "Balanced Mutual Funds." : "Equity Funds & Real Estate.";
+                investOption = "pension";
+            }
+
+            document.getElementById("advice").innerHTML = `<p><strong>Suggested Investment:</strong> ${adviceText}</p>`;
+            document.getElementById("advice").style.display = "block";
+            document.getElementById("invest-btn").style.display = "block";
+            document.getElementById("invest-btn").setAttribute("data-invest", investOption);
+        }
+
+        function showHowToInvest() {
+            let investType = document.getElementById("invest-btn").getAttribute("data-invest");
+            let howToText = "";
+
+            if (investType === "stocks") {
+                howToText = "Open a brokerage account and start with blue-chip stocks.";
+            } else if (investType === "reits") {
+                howToText = "Invest through REIT platforms like Vanguard or real estate funds.";
+            } else {
+                howToText = "Consider pension schemes like NPS or retirement mutual funds.";
+            }
+            
+            document.getElementById("how-to-invest").innerHTML = `<p>${howToText}</p>`;
+            document.getElementById("how-to-invest").style.display = "block";
+        }
+    </script>
+</body>
+</html>
